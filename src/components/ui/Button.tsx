@@ -1,32 +1,35 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes } from 'react';
+
+type Variant = 'primary' | 'ghost' | 'danger';
+type Size = 'sm' | 'md' | 'lg';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "danger";
-  size?: "sm" | "md" | "lg";
+  variant?: Variant;
+  size?: Size;
 }
 
+const variantClasses: Record<Variant, string> = {
+  primary: 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg hover:shadow-blue-500/40',
+  ghost:   'bg-white/10 text-gray-300 border border-white/20 hover:bg-white/20',
+  danger:  'bg-gradient-to-r from-red-500 to-rose-400 text-white shadow-lg',
+};
+
+const sizeClasses: Record<Size, string> = {
+  sm: 'px-4 py-2 text-sm',
+  md: 'px-8 py-3 text-xl',
+  lg: 'px-14 py-5 text-2xl',
+};
+
 export default function Button({
-  variant = "primary",
-  size = "md",
-  className = "",
+  variant = 'primary',
+  size = 'md',
+  className = '',
   children,
   ...props
 }: ButtonProps) {
-  const variantClasses = {
-    primary: "bg-blue-600 hover:bg-blue-700 text-white",
-    secondary: "bg-gray-200 hover:bg-gray-300 text-gray-800",
-    danger: "bg-red-600 hover:bg-red-700 text-white",
-  };
-
-  const sizeClasses = {
-    sm: "px-3 py-1.5 text-sm",
-    md: "px-4 py-2 text-base",
-    lg: "px-6 py-3 text-lg",
-  };
-
   return (
     <button
-      className={`rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
+      className={`font-bold rounded-full transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
       {...props}
     >
       {children}

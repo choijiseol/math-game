@@ -1,28 +1,28 @@
-export type Difficulty = "easy" | "medium" | "hard";
-
-export type Operation = "addition" | "subtraction" | "multiplication" | "division";
-
-export interface Question {
+export interface Bubble {
   id: string;
-  operandA: number;
-  operandB: number;
-  operation: Operation;
-  answer: number;
-}
-
-export interface GameState {
-  score: number;
-  lives: number;
-  currentQuestion: Question | null;
-  difficulty: Difficulty;
-  isGameOver: boolean;
-  timeLeft: number;
-}
-
-export interface GameResult {
-  score: number;
-  totalQuestions: number;
-  correctAnswers: number;
-  difficulty: Difficulty;
+  operator: '+' | '-';
+  value: number;
+  x: number;
   duration: number;
+  delay: number;
+  color: string;
+}
+
+export type GameResult = 'success' | 'fail' | null;
+
+export interface Puzzle {
+  target: number;
+  bubbles: Bubble[];
+}
+
+export interface StageConfig {
+  stage: number;
+  operators: ('+' | '-')[];
+  valueMin: number;
+  valueMax: number;
+  targetMin: number;
+  targetMax: number;
+  solutionRange: [number, number];
+  bubbleRange: [number, number];
+  fallRange: [number, number];
 }
